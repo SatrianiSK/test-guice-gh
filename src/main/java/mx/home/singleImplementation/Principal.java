@@ -17,7 +17,7 @@ public class Principal {
 		
 		System.out.println(asPrueba);
 		System.out.println(asPrueba.obtenerInformacion());
-		
+		System.out.println("Prueba de Git");
 	}
 	
 }
