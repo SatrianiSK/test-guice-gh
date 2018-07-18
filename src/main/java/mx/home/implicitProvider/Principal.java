@@ -9,7 +9,7 @@ public class Principal {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Injector injector = Guice.createInjector();
+		Injector injector = Guice.createInjector(); // Clase Injector sin modulo
 		ASPrueba asPrueba = injector.getInstance(ASPrueba.class);
 		System.out.println(asPrueba);
 		System.out.println(asPrueba.obtenerInformacion());

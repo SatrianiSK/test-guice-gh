@@ -8,15 +8,20 @@ public class DAOPruebaProvider implements Provider<DAOPrueba> {
 	
 	@Override
 	public DAOPrueba get() {
+		DAOPrueba instance = null;
 		Random random = new Random();
 		switch(random.nextInt(2)) {
 			case 0:
-				return new DAOPruebaImpl();
+				instance = new DAOPruebaImpl();
+				break;
 			case 1:
-				return new DAOPruebaImpl2();
+				instance = new DAOPruebaImpl2();
+				break;
 			default:
-				return new DAOPruebaImpl();
+				instance = new DAOPruebaImpl();
+				break;
 		}
+		return instance;
 	}
 	
 }

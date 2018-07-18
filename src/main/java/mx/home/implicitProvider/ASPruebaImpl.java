@@ -12,6 +12,7 @@ public class ASPruebaImpl implements ASPrueba {
 	
 	@Override
 	public List<String> obtenerInformacion() {
+		// Cada que se llama el metodo .get() se obtiene un nuevo objeto
 		System.out.println(daoPrueba.get());
 		System.out.println(daoPrueba.get());
 		List<String> resultado = new ArrayList<>();
