@@ -54,6 +54,7 @@ public class MainProtobuf {
 				.build();
 		
 		System.out.println(addressBookOneOf.toString());
+		System.out.println("Número de contactos: " + addressBookOneOf.getContactsCount());
 	}
 	
 }
