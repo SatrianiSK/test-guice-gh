@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+package helloworld.proto;
 option java_multiple_files = true;
-option java_package = "mx.home.protobuf.generated.helloworld";
+option java_package = "mx.home.grpc.generated.helloworld";
 option java_outer_classname = "HelloWorldProtos";
 
-package helloworld.proto;
 
 message HelloRequest {
   string name = 1;

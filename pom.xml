@@ -11,7 +11,8 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <guice-version>4.1.0</guice-version>
     <protobuf-version>3.6.0</protobuf-version>
-    <grpc-version>1.13.2</grpc-version>
+    <grpc-version>1.13.1</grpc-version>
+    <guava-version>25.0-jre</guava-version>
     <junit-version>4.12</junit-version>
     <mockito-version>2.19.1</mockito-version>
   </properties>
@@ -48,6 +49,20 @@
       <version>${grpc-version}</version>
     </dependency>
     
+    <!-- google guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava-version}</version>
+    </dependency>
+    
+    <!-- apache httpcomponents -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>4.4.8</version>
+    </dependency>
+    
     <!-- junit -->
     <dependency>
       <groupId>junit</groupId>
@@ -75,24 +90,24 @@
     </extensions>
     <plugins>
       <!-- plugin para compatibilidad con protobuf y grpc -->
-      <plugin>
-        <groupId>org.xolstice.maven.plugins</groupId>
-        <artifactId>protobuf-maven-plugin</artifactId>
-        <version>0.5.1</version>
-        <configuration>
-          <protocArtifact>com.google.protobuf:protoc:${protobuf-version}:exe:${os.detected.classifier}</protocArtifact>
-          <pluginId>grpc-java</pluginId>
-          <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc-version}:exe:${os.detected.classifier}</pluginArtifact>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compile</goal>
-              <goal>compile-custom</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<!--       <plugin> -->
+<!--         <groupId>org.xolstice.maven.plugins</groupId> -->
+<!--         <artifactId>protobuf-maven-plugin</artifactId> -->
+<!--         <version>0.5.1</version> -->
+<!--         <configuration> -->
+<!--           <protocArtifact>com.google.protobuf:protoc:${protobuf-version}:exe:${os.detected.classifier}</protocArtifact> -->
+<!--           <pluginId>grpc-java</pluginId> -->
+<!--           <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc-version}:exe:${os.detected.classifier}</pluginArtifact> -->
+<!--         </configuration> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <goals> -->
+<!--               <goal>compile</goal> -->
+<!--               <goal>compile-custom</goal> -->
+<!--             </goals> -->
+<!--           </execution> -->
+<!--         </executions> -->
+<!--       </plugin> -->
     </plugins>
   </build>
   

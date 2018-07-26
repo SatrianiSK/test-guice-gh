@@ -1,11 +1,15 @@
-package mx.home.grpc.example;
+package mx.home.grpc.example.server;
 
 import java.io.IOException;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.stub.StreamObserver;
+import mx.home.grpc.generated.helloworld.GreeterGrpc;
+import mx.home.grpc.generated.helloworld.HelloReply;
+import mx.home.grpc.generated.helloworld.HelloRequest;
 
-public class ServerTest {
+public class ServidorGrpc {
 	/** Servidor de GRPC. */
 	private Server server;
 	
@@ -14,13 +18,14 @@ public class ServerTest {
 	private void start() throws IOException {
 		int port = 8095;
 		server = ServerBuilder.forPort(port)
+				.addService(new GreeterImpl())
 				.build()
 				.start();
 		
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
-				ServerTest.this.stop();
+				ServidorGrpc.this.stop();
 			}
 		});
 	}
@@ -39,13 +44,20 @@ public class ServerTest {
 		}
 	}
 	
-	/** Main 
-	 * @throws IOException 
-	 * @throws InterruptedException */
 	public static void main(String[] args) throws IOException, InterruptedException {
-		ServerTest server = new ServerTest();
+		ServidorGrpc server = new ServidorGrpc();
 		server.start();
 		server.blockUntilShutdown();
+	}
+	
+	
+	static class GreeterImpl extends GreeterGrpc.GreeterImplBase {
+		@Override
+		public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
+			HelloReply reply = HelloReply.newBuilder().setMessage("Hola " + request.getName()).build();
+			responseObserver.onNext(reply);
+			responseObserver.onCompleted();
+		}
 	}
 	
 }
