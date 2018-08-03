@@ -27,5 +27,7 @@ public class SimpleFuture {
         }
         System.out.println("Future state: " + future.isDone());
         System.out.println("Result: " + result);
+        
+        fixedThreadPool.shutdown();
     }
 }
