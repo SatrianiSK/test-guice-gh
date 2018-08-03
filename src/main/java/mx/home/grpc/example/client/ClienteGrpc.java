@@ -2,10 +2,12 @@ package mx.home.grpc.example.client;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -19,15 +21,16 @@ public class ClienteGrpc {
     private final GreeterGrpc.GreeterFutureStub futureStub;
     private final ExecutorService threadPool;
     
-    public ClienteGrpc(String host, int port) {
-        this(ManagedChannelBuilder.forAddress(host, port).usePlaintext().build());
+    @Inject
+    public ClienteGrpc(String host, int port, ExecutorService executor) {
+        this(ManagedChannelBuilder.forAddress(host, port).usePlaintext().build(), executor);
     }
     
-    public ClienteGrpc(ManagedChannel channel) {
+    public ClienteGrpc(ManagedChannel channel, ExecutorService executor) {
         this.channel = channel;
         //blockingStub = GreeterGrpc.newBlockingStub(channel); // Previamente usado para llamada síncrona
         futureStub = GreeterGrpc.newFutureStub(channel);
-        threadPool = Executors.newCachedThreadPool();
+        threadPool = executor;
     }
     
     public void shutdown() throws InterruptedException {
@@ -54,7 +57,9 @@ public class ClienteGrpc {
     }
     
     public static void main(String[] args) {
-        ClienteGrpc cliente = new ClienteGrpc("localhost", 8095);
+        Injector injector = Guice.createInjector(new ClientModule());
+        ClienteGrpc cliente = injector.getInstance(ClienteGrpc.class);
+        
         String name = "Rodrigo";
         try {
             cliente.greet(name);
